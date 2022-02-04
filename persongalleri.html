@@ -31,7 +31,7 @@
             border-radius: 10px;
           }
           img {
-            width: 100px;
+            width: 100%;
             border-radius: 10px;
           }
           .info {
@@ -85,7 +85,7 @@
               let formatDate = new Date(person.fødselsdag).toDateString();
               let birthday = (klon.querySelector(
                 ".efternavn"
-              ).textContent = `efternavn: ${formatDate}`);
+              ).textContent = `efternavn: ${person.efternavn}`);
               container.appendChild(klon);
             });
           }
