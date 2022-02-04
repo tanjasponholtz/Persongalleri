@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+           
+        <meta charset="UTF-8" />
+           
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+           
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+           
+        <title>Document</title>
+      </head>
+      <body>
+           <style>
+          section {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+          }
+          article {
+            border: 2px solid;
+            border-radius: 10px;
+          }
+          img {
+            width: 100px;
+            border-radius: 10px;
+          }
+          .info {
+            padding: 0 1rem;
+          }
+        </style>
+        <h1>Persongalleri</h1>
+        <section class="container">
+          <template>
+            <article>
+              <img src="" alt="" />
+              <h2></h2>
+              <div class="info">
+                <p class="email"></p>
+                <p class="fornavn"></p>
+                <p class="efternavn"></p>
+              </div>
+            </article>
+          </template>
+        </section>
+        <script>
+          const url = "https://sem2tema7-e377.restdb.io/rest/persongalleri";
+          const options = {
+            headers: { "x-apikey": "61fcfc183f215f310a37be94" },
+          };
+          async function hentData() {
+            const respons = await fetch(url, options);
+            const json = await respons.json();
+            vis(json);
+          }
+          function vis(json) {
+            console.log(json);
+          }
+          hentData();
+          let container = document.querySelector(".container");
+          let temp = document.querySelector("template");
+
+          function vis(persongalleri) {
+            persongalleri.forEach((person) => {
+              const klon = temp.cloneNode(true).content;
+              klon.querySelector("img").src = `faces/${person.billede}`;
+              klon.querySelector(
+                "h2"
+              ).textContent = `${person.fornavn} ${person.efternavn}`;
+              klon.querySelector(
+                ".email"
+              ).textContent = `email: ${person.email}`;
+              klon.querySelector(
+                ".fornavn"
+              ).textContent = `fornavn: ${person.fornavn}`;
+              let formatDate = new Date(person.fødselsdag).toDateString();
+              let birthday = (klon.querySelector(
+                ".efternavn"
+              ).textContent = `efternavn: ${formatDate}`);
+              container.appendChild(klon);
+            });
+          }
+        </script>
+      </body>
+    </html>
+  </body>
+</html>
